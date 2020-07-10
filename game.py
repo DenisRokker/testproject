@@ -1,4 +1,14 @@
 import time
+import json
+
+JSON_TEXT_FILE_NAME = 'text.json'
+
+
+def json_load():
+    return json.load(open(JSON_TEXT_FILE_NAME, encoding='utf8'))
+
+
+TEXT = json_load()
 
 
 def delay(seconds):
@@ -21,25 +31,24 @@ def create_character(name, health, power, intellect, dexterity):
     return self
 
 
-name = input("Введите имя персонажа: ")
-print("распределите очки между тремя навыками \"силой\" \"здоровьем\" и \"интелектом\""
-      "(максимум 5 очков у каждого навыка)")
+name = input(TEXT["name"])
+print(TEXT["point"])
 
 limit = 5
 print(f"У вас осталось {limit} очков")
 
 while True:
 
-    power = int(input("Введите силу персонажа: "))
-    intellect = int(input("Введите интелект: "))
-    dexterity = int(input("Введите ловкость: "))
+    power = int(input(TEXT["power"]))
+    intellect = int(input(TEXT["intellect"]))
+    dexterity = int(input(TEXT["dexterity"]))
     health = 10
 
-    if power + dexterity + intellect <= limit or power and dexterity and intellect > -1:
+    if power + dexterity + intellect <= limit and power and dexterity and intellect > -1:
         break
 
     else:
-        print("Повторите ввод навыков")
+        print(TEXT["repeat"])
 
 equipment = []
 
@@ -51,28 +60,24 @@ print(f"Ваш персонаж: \"{name}\" "
 
 delay(3)
 
-print("Глвава I. Начало. Под землей.")
+print(TEXT["chapter_1"])
 
 delay(2)
 
-print("(Рассказчик) - Вы просыпаетесь в тёмной пещере. Вокруг вас сырые каменные стены...")
+print(TEXT["replica_1"])
 
 delay(2)
 
-input(f"({name}) - где я, что произошло?    (нажмите \"Enter\" чтобы продожить)")
-print("(Рассказчик) - Вы оборачиваетесь и видите гору из огромных камней, которые засыпали проход...\n"
-      "Вы приглядываетесь и видите, что из под одного из камней торчит чья то рука. "
-      "Кажется это один из ваших спутников!")
+input(TEXT["replica_2"].format(name))
+print(TEXT["replica_3"])
 
 while True:
 
-    stone = input("Попытаться сдвинуть камень? (требуется сила: 1): ")
+    stone = input(TEXT["stone"])
 
     if stone == "да" and power >= 1:
 
-        print("(Расскачзчик) - Вы упираетесь в камень и с трудом спихиваете его с тела вашего товарища. "
-              "Перед вами лежит мертый гном. "
-              "Из-за пояса у него торчит меч, ему он уже больше не пригодится, а вот вам не помешает ")
+        print(TEXT["replica_4"])
         delay(1)
 
         equipment.append("Меч")
@@ -87,23 +92,22 @@ while True:
         break
 
     elif stone == "да" and power == 0:
-        print("(Расскачзчик) - Вы упираетесь в камень, но ничего не происходит, камень слишком тяжёлый. ")
+        print(TEXT["replica_5"])
         break
     elif stone == "нет":
         ...
         break
     else:
-        print("Введите \"да\" или \"нет\"")
+        print(TEXT["repeat_2"])
 
-input("Нажмите \"Enter\" для продолжения")
-print("(неизвестный шум...Приближается)")
-
-delay(2)
-print("(Неизвестный) - ГРРР...ХЛХР...РР!!!")
+input(TEXT["continue"])
+print(TEXT["replica_6"])
 
 delay(2)
-print("(Рассказчик - В темноте вы различаете силуэт огромного тролля,"
-      "\n   ___\n_ |0 0| _\n \| _ |/\n  |___|\n _/   \_\n он грозно рычит. Выхода нет. это конец.)")
+print("replica_7")
+
+delay(2)
+print(TEXT["replica_8"])
 
 print(f"Ваш персонаж: \"{name}\" "
       f"здоровье: {health} "
@@ -115,17 +119,16 @@ if "Меч" in equipment:
 
     while True:
 
-        fight = input("Ударить тролля мечом или попытаться убежать? ")
+        fight = input(TEXT["punch"])
 
         if fight == "ударить" and power == 5:
-            print("(Рассказчик - Вы пинаете небольшой камень лежавший у вас под ногами в сторону тролля. "
-                  "Глупый тролль смотрит на небольшой камешек не понимая что происходит")
+            print(TEXT["replica_9"])
             delay(2)
-            print("(Тролль) - ЭТО..ГРХ...ВСЕ, ЧТО ОНО..ГРХЛ! МОЖЕТ НАМ СДЕАТЬ..ГРР?!")
+            print(TEXT["replica_10"])
             delay(2)
-            print("(Рассказчик) - Пользуясь тем, что тролль отвлекся вы быстро приближаетесь к нему и одним точным и сильным ударом сносите голову этому монтсру.\n"
-                  "Обезглавленное тело тролля падает, а голова укатывается в глубь пещеры ")
-            print("(Рассказчик) - На поясе троля вы замечете что то блестящее.\nЭто ключ! Интересно, что он отпирает...?")
+            print(TEXT["replica_11"])
+            print(TEXT["replica_12"])
+
             equipment.append('Ключ')
 
             print(f"Ваш персонаж: \"{name}\" "
@@ -136,45 +139,45 @@ if "Меч" in equipment:
 
             print("Ваш инвентарь: " + equipment[0] + ", " + equipment[1])
 
-            input("нажмите \"Enter\" чтобы продожить")
-            print("(Рассказчик) - Обойдя труп тролля вы решаетесь идти дальше в глубь пещеры.")
+            input(TEXT["continue"])
+            print(TEXT["replica_13"])
 
             head_of_troll = 1
 
             break
 
         elif fight == "ударить" and power < 5:
-            print("(Рассказчик) - Собрав всю свою волю в кулак вы рветесь с метса на ужасного монстра. "
-                  "Не заметив камень у вас поднагами, вы спотыкаетсь и падаете под ноги троллю")
+            print(TEXT["replica_14"])
             delay(2)
-            print("(Рассказчик) - Тролль берет вас в свои лапы и разрывает пополам")
+            print(TEXT["replica_15"])
             delay(1)
-            print("ВЫ МЕРТВЫ")
+            print(TEXT["die"])
 
             life = 0
 
             break
 
         elif fight == "убежать":
-            print("(Рассказчик) - от безысходности вы кричите на тролля.")
+            print(TEXT["replica_16"])
             delay(2)
-            print("(Тролль) - ЧТО ГРРР...ПРОИСХОДИТЬ...РГХЛ...!?")
+            print(TEXT["replica_17"])
             delay(1)
-            print("(Рассказчик) - Пользуясь тем, что тролль в замешательстве вы быстро проскакиваете под троллем и бежите в глубь пещеры... ")
+            print(TEXT["replica_18"])
 
             break
 
         else:
-            print("Ударить или убжеать?")
+            print(TEXT["repeat_3"])
 
 elif "Меч" not in equipment:
-    print("(Рассказчик) - от безысходности вы кричите на тролля.")
+    print(TEXT["replica_16"])
     delay(2)
-    print("(Тролль) - ЧТО ГРРР...ПРОИСХОДИТЬ...РГХЛ...!?")
+    print(TEXT["replica_17"])
     delay(1)
-    print("(Рассказчик) - Пользуясь тем, что тролль в замешательстве вы быстро проскакиваете под троллем и бежите в глубь пещеры... ")
+    print(TEXT["replica_18"])
 
 delay(3)
 print("Конец первой главы.")
-input("нажмите \"Enter\" чтобы продожить")
+input(TEXT["continue"])
 print("Глава II.")
+input("Продолжение следует...")
