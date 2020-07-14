@@ -44,7 +44,7 @@ while True:
     dexterity = int(input(TEXT["dexterity"]))
     health = 10
 
-    if power + dexterity + intellect <= limit and power and dexterity and intellect > -1:
+    if limit >= power + dexterity + intellect > -1:
         break
 
     else:
@@ -104,7 +104,7 @@ input(TEXT["continue"])
 print(TEXT["replica_6"])
 
 delay(2)
-print("replica_7")
+print(TEXT["replica_7"])
 
 delay(2)
 print(TEXT["replica_8"])
@@ -130,6 +130,23 @@ if "Меч" in equipment:
             print(TEXT["replica_12"])
 
             equipment.append('Ключ')
+
+            print("Вы получили новый уровень!")
+
+            limit = 6
+            print(f"У вас осталось 1 очко навыков.")
+
+            while True:
+
+                power = power + int(input(TEXT["power"]))
+                intellect = intellect + int(input(TEXT["intellect"]))
+                dexterity = dexterity + int(input(TEXT["dexterity"]))
+
+                if limit >= power + dexterity + intellect > 0:
+                    break
+
+                else:
+                    print(TEXT["repeat"])
 
             print(f"Ваш персонаж: \"{name}\" "
                   f"здоровье: {health} "
