@@ -1,0 +1,2 @@
+
+docker run --detach --name gamedb --publish 5432:5432  --env POSTGRES_PASSWORD=postgres  --volume gamedb:/var/lib/postgresql/data postgres:12
